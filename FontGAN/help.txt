@@ -1,0 +1,2 @@
+Git注意事项：同步一段时间后可以关掉。
+Git资源网站：https://zhuanlan.zhihu.com/p/276376558
