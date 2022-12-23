@@ -5,7 +5,7 @@
 \institute{上海市实验学校}
 \date{\zhtoday}
 
-\usepackage{url,appendix,float,graphicx,diagbox}
+\usepackage{url,appendix,float,graphicx,diagbox,multicol}
 
 \begin{document}
 
@@ -43,8 +43,7 @@
     \subsubsection{建模法}
     通过建立模型的方式对于问卷所收集的数据进行数学分析。建立数学模型的方法能够定量地研究数据之间的关系，从而理性地根据给定的新数据预测新的结果。借助机器学习或者统计图表及其他统计学方法，可以较为简单地发现各种数据之间的联系。但是需要注意防止出现因果关系颠倒，避免研究不相关的两个变量之间的关系。
 
-    \section{必要性分析}
-    \subsection{问卷分析}
+    \section{问卷分析}
     共有142人参加问卷的调查，其中3份问卷为无效问卷，139份问卷为有效问卷。
     
     通过问卷\footnote{见附录A}的调查，可以从侧面看出现代人对于住房舒适度（本文中具体体现在对于电梯的需求）以及经济方面的考虑程度。
@@ -59,7 +58,7 @@
 
     根据问卷，可以发现在有电梯且价格相同的情况下，人们对于居住楼层的选择普遍偏高，数据大部分分布在5、6两层；在没有电梯且价格相同的情况下，人们一般偏向低楼层（偏中部），数据大部分分布在2、3两层；在有电梯且价格不同的情况下，人们对于居住楼层的选择普遍偏低，数据大部分分布在2、3两层；在没有电梯且价格不同的情况下，就更加体现出对于低楼层的“偏爱”。
 
-    综上所述，楼层高度、电梯和金钱对于人们的居住意愿以及居住体验有比较明显的影响，所以加装电梯对于人们生活水平和生活幸福指数的提高有很大的作用，老旧小区加装电梯的进程势在必行
+    综上所述，楼层高度、电梯和金钱对于人们的居住意愿以及居住体验有比较明显的影响，所以加装电梯对于人们生活水平和生活幸福指数的提高有很大的作用，老旧小区加装电梯的进程势在必行。
 
     \iffalse
     \begin{figure}[H]
@@ -68,12 +67,28 @@
     \end{figure}
     \fi
 
-    \section{}
-    \subsection{}
-    记未加装电梯时各楼层房价为$A_i(1\leqslant i\leqslant 6)$，加装电梯后各层楼房价为$B_i(1\leqslant i\leqslant 6)$，加装电梯过程中每层楼的花费为$C_i(1\leqslant i\leqslant 6)$，电梯总价$C$元。各楼层对于加装电梯的正(positive)影响系数为$p_i(1\leqslant i\leqslant 6)$，负(negative)影响系数为$n_i(1\leqslant i\leqslant 6)$。记$\displaystyle A=\sum_{i=1}^6A_i,B=\sum_{i=1}^6B_i$。
-
-    则各层楼毛利润为$S_i=B_i-A_i$,总毛利润为$\displaystyle S=\sum_{i=1}^{6}S_i=\sum_{i=1}^{6}(B_i-A_i)=B-A$。
-
+    \section{模型与假设}
+    \subsection{符号说明}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{ccc}
+            \toprule
+            符号 & 含义 & 单位 \\
+            \midrule
+            $A_i$ & 未加装电梯时各楼层房价 & 万元\\
+            $B_i$ & 加装电梯后各层楼房价 & 万元\\
+            $C_i$ & 加装电梯过程中每层楼的花费 & 万元\\
+            $A$ & $A=\sum_{i=1}^6A_i$ & 万元\\
+            $B$ & $B=\sum_{i=1}^6B_i$ & 万元\\
+            $C$ & 电梯总价，即$C=\sum_{i=1}^6C_i$ & 万元\\
+            $p_i$ & 各楼层对于加装电梯的正(positive)影响系数 & / \\
+            $n_i$ & 各楼层对于加装电梯的负(negative)影响系数 & / \\
+            $S_i$ & 各层楼毛利润: $S_i=B_i-A_i$ & 万元\\
+            $S$ & 总毛利润: $S=\sum_{i=1}^{6}S_i=\sum_{i=1}^{6}(B_i-A_i)=B-A$ & 万元\\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+        
     根据未加装电梯时房价$A_i$分摊：每层楼分摊收益为$\displaystyle N_{1_i}=\frac{A_i}{A}\cdot S-C_i=\frac{A_i}{A}\cdot(B-A)-C_i$。按照相同比例，每层楼应该分摊的电梯的费用为$\displaystyle C_{1_i}=\frac{A_i}{A}\cdot C$。
 
     根据已加装电梯时房价$B_i$分摊：每层楼分摊收益为$\displaystyle N_{2_i}=\frac{B_i}{B}\cdot S-C_i=\frac{B_i}{B}\cdot(B-A)-C_i$。按照相同比例，每层楼应该分摊的电梯的费用为$\displaystyle C_{1_i}=\frac{B_i}{B}\cdot C$。
@@ -81,7 +96,6 @@
     根据加装电梯前后房价差（即收益）$S_i=B_i-A_i$分摊：每层楼分摊收益为$\displaystyle N_{3_i}=\frac{S_i}{S}\cdot S-C_i=S_i-C_i=B_i-A_i-C_i$。按照相同比例，每层楼应该分摊的电梯的费用为$\displaystyle C_{1_i}=\frac{B_i-A_i}{B-A}\cdot C$。
 
     根据平均收益分摊：$\displaystyle N_{4_i}=\bar{S}-C_i=\frac{S}{6}-C_i=\frac{1}{6}(B-A)-C_i$。
-
     \section*{致谢}
     在论文完成之际，我想要感谢我的班主任，也是我的指导老师季鑫，季老师。他在问卷调查、统计分析、小论文撰写等方面都给予了很大的帮助，凭借自己的经验也对于我小论文后期的完善有很多的帮助。同时感谢我的同班同学们，他们十分热心地转发了我的问卷，我才得以有比较完善的数据体系。其中特别感谢卢薏安同学，她在我的小论文撰写期间提供了许多思路和建议，对于论文的排版和美化也提出了许多自己的见解和建议。
     
